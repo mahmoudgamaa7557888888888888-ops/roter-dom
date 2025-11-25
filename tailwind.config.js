@@ -1,11 +1,15 @@
 module.exports = {
-  purge: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false,
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: "class", 
   theme: {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["dark", "hover", "responsive"],
+      textColor: ["dark", "hover", "responsive"],
+      boxShadow: ["dark"],
+    },
   },
   plugins: [],
-}
+};

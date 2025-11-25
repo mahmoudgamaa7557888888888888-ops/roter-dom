@@ -14,7 +14,7 @@ function LoginPage() {
   const [loading ,setLoading] = useState(false)
   const { showToast } = useToast()
 
-  const handleLogin = async (e) => {
+  const handleLogin = async () => {
     if (email !== "" && password !== "") {
       setLoading(true)
       try {
@@ -41,14 +41,7 @@ function LoginPage() {
     }
  
   };
-  useEffect(() => {
-    async function getDayName() {
-      const m = new WarehouseManger();
-      const d = await m.getAllStock();
-      setDayName(d);
-    }
-    getDayName();
-  }, []);
+ 
 
 
   return (

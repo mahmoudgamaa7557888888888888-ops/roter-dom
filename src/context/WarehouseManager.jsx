@@ -1,6 +1,5 @@
 import firebase from "firebase";
 import { db } from "../firebaseConfig";
-import { useToast } from "../hoks/useToast";
 
 export class WarehouseManger {
   
@@ -114,21 +113,21 @@ export class WarehouseManger {
     await batch.commit();
   }
 
-  getStock(onData) {
-    const dat = db
-      .collection("mgzan")
-      .doc(this.today)
-      .collection("stock_data")
-      .doc("main")
-      .onSnapshot((docSnap) => {
-        if (docSnap.exists) {
-          onData(docSnap.data());
-        } else {
-          this.toast("لا يوجد بينات او حدث خطاء","error");
-        }
-      });
-    return dat;
+  async getStock() {
+  try{ const data = this.dayDocRef.collection("stock_data")
+   .doc("main")
+   const snap = await data.get()
+   if (snap.exists){
+ 
+    return snap.data()
+   }else{
+    this.toast("لا يوجد بينات")
+    return null
+   }
+  }catch(e){
+    this.toast(`حدث خطاء ما ${e}`,"error")
   }
+}
 
   async getTrader(id) {
     try {
@@ -156,7 +155,7 @@ export class WarehouseManger {
       id: doc.id,
       ...doc.data(),
     }));
-    console.log("قائمة التجار:", traders);
+    
     return traders;
   }
 

@@ -11,46 +11,48 @@ import AllDaysPage from "./page/MainPage/components/allDaysPage/AllDaysPage";
 import Traders from "./page/MainPage/components/Traders";
 import { useState } from "react";
 import { WarehouseManger } from "./context/WarehouseManager";
+import AppLoader from "./AppLoader/AppLoader";
+import LoginGurd from "./AppLoader/LoginGurd";
+import AuthGurd from "./AppLoader/AuthGurd";
 
 function App() {
-  const [dayName, setDayName] = useState([])
-
-  
-  useEffect(() => {
-    async function getDayName() {
-      const m = new WarehouseManger();
-      const d = await m.getAllStock();
-      setDayName(d);
-    }
-    getDayName();
-  }, []);
-
-  const { user } = useContext(AuthStateContext);
-  if (!user) {
-    return (
-      <>
-        <Navigate to="/login" />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
-      </>
-    );
+  const { user, loading } = useContext(AuthStateContext);
+  if (loading) {
+    return <AppLoader />;
   }
 
   return (
     <>
       <Routes>
-        <Route path="/home" element={<MainPage />}>
+        <Route
+          path="/home"
+          element={
+            <AuthGurd>
+              <MainPage />
+            </AuthGurd>
+          }
+        >
           <Route index element={<MainPageContent />} />
           <Route path="trader" element={<Traders />} />
           <Route path="add-day" element={<AddDayPage />} />
           <Route path="all-days" element={<AllDaysPage />} />
         </Route>
+        <Route
+          path="/"
+          element={
+            <AuthGurd>
+              <MainPage />
+            </AuthGurd>
+          }
+        />
 
         <Route
           path="/login"
-          element={user && dayName.length > 0 ? <Navigate to={`/home?dayName=${dayName.at(-1).id}`} /> : <LoginPage />}
+          element={
+            <LoginGurd>
+              <LoginPage />
+            </LoginGurd>
+          }
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
