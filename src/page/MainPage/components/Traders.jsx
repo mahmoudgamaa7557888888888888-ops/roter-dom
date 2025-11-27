@@ -6,11 +6,11 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useTrader } from "../../../hoks/useStock";
 
 export default function Traders() {
-  const [param] = useSearchParams();
-  const traderID = param.get("name");
-  const traderDate = param.get("dayName");
+  const {name} = useParams();
+  console.log(name);
+  
 
-  const { data: trData, isLoading: traderLoading } = useTrader( traderDate, traderID );
+  const { data: trData, isLoading: traderLoading } = useTrader(name);
 
 
   return (
@@ -19,7 +19,7 @@ export default function Traders() {
       <header className="mb-6 text-center">
         <h1 className="text-3xl font-bold transform duration-150 hover:scale-110 hover:text-indigo-600 text-gray-800 dark:text-gray-100">
           سجل التاجر <br />
-          <span className="text-5xl dark:text-gray-100">{traderID}</span>
+          <span className="text-5xl dark:text-gray-100">{name}</span>
         </h1>
         <p className="text-gray-600 text-lg mt-1 dark:text-gray-400">
           هنا ستجد جميع معاملات التاجر
@@ -104,7 +104,7 @@ export default function Traders() {
         <div className="space-y-2">
           <div className="flex justify-between bg-gray-100 p-3 rounded-lg dark:bg-gray-700">
             <span className="dark:text-gray-200">تاريخ الوصول:</span>
-            <span className="dark:text-gray-300">{traderDate}</span>
+            <span className="dark:text-gray-300">{"غير معلوم"}</span>
           </div>
 
           <div className="flex justify-between bg-gray-100 p-3 rounded-lg dark:bg-gray-700">
@@ -132,7 +132,7 @@ export default function Traders() {
                       className="w-full text-left px-4 py-3 font-semibold text-gray-800 hover:bg-gray-100 transition
                   dark:text-gray-100 dark:hover:bg-gray-600"
                     >
-                      سجل المعاملات - {traderID}
+                      سجل المعاملات - {name}
                       <span className="text-gray-500 text-sm dark:text-gray-300">
                         {" "}
                         {log.waqt}{" "}

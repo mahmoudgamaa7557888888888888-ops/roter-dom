@@ -14,10 +14,12 @@ import { WarehouseManger } from "./context/WarehouseManager";
 import AppLoader from "./AppLoader/AppLoader";
 import LoginGurd from "./AppLoader/LoginGurd";
 import AuthGurd from "./AppLoader/AuthGurd";
+import { useAllDays } from "./context/AllDaysProvider";
 
 function App() {
   const { user, loading } = useContext(AuthStateContext);
-  if (loading) {
+  const { selectedDay, daysLoading } = useAllDays();
+  if (loading ) {
     return <AppLoader />;
   }
 
@@ -25,7 +27,7 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/home"
+          path="/home/"
           element={
             <AuthGurd>
               <MainPage />
@@ -33,7 +35,7 @@ function App() {
           }
         >
           <Route index element={<MainPageContent />} />
-          <Route path="trader" element={<Traders />} />
+          <Route path="trader/:name" element={<Traders />} />
           <Route path="add-day" element={<AddDayPage />} />
           <Route path="all-days" element={<AllDaysPage />} />
         </Route>

@@ -6,11 +6,17 @@ import OpenInBrowserIcon from "@material-ui/icons/OpenInBrowser";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import { useTheme } from "../../../../context/themeContext";
+import { CiLight, CiDark } from "react-icons/ci";
+import { useAllDays } from "../../../../context/AllDaysProvider";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [param] = useSearchParams();
   const dayName = param.get("dayName");
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  
+  
+  
+
   const handleLogout = async () => {
     try {
       await auth.signOut();
@@ -19,8 +25,9 @@ export default function Navbar() {
     }
   };
 
+
   return (
-    <nav className="bg-white dark:bg-gray-800 text-gray-800  z-50  shadow-md p-4  relative">
+    <nav className="bg-white dark:bg-gray-800 text-gray-800  z-40  shadow-md p-4  relative">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-xl dark:text-white font-bold">ادارة المخزن</h1>
         <button
@@ -54,7 +61,7 @@ export default function Navbar() {
               : "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto"
           }`}
         >
-          <Link to={`/home?dayName=${dayName}`}>
+          <Link to={`/home${""}`}>
             <li
               className={`p-3 ${
                 open
@@ -90,10 +97,10 @@ export default function Navbar() {
           </Link>
 
           <li
-            className="p-3 font-semibold text-red-600 hover:text-red-400 cursor-pointer"
+            className="p-3 font-semibold text-2xl dark:text-white dark:hover:text-red-400  hover:text-red-400 cursor-pointer"
             onClick={toggleTheme}
           >
-            mode <ExitToAppIcon />
+            {theme === "light" ? <CiLight /> : <CiDark />}
           </li>
           <li
             className="p-3 font-semibold text-red-600 hover:text-red-400 cursor-pointer"

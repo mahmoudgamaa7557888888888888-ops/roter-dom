@@ -7,6 +7,9 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import { Link, useSearchParams } from "react-router-dom";
 import { useToast } from "../../../../hoks/useToast";
 import { useStock } from "../../../../hoks/useStock";
+import AllDaysLest from "../allDaysPage/AllDaysLest";
+import { useAllDays } from "../../../../context/AllDaysProvider";
+import AppLoader from "../../../../AppLoader/AppLoader";
 
 export default function MainPageContent() {
   const { user } = useContext(AuthStateContext);
@@ -17,20 +20,36 @@ export default function MainPageContent() {
   const [param] = useSearchParams();
   const dayName = param.get("dayName");
   const { showToast } = useToast();
+  const { selectedDay } = useAllDays();
 
-  
-  const mangerOfWarehouse = new WarehouseManger(dayName, showToast);
-  const { data: stock_data, isLoading: stockLoading , invalidData } = useStock();
- 
+  const mangerOfWarehouse = new WarehouseManger(selectedDay, showToast);
+  const { data: stock_data, isFetching, isLoading: stockLoading, invalidData } = useStock();
+
+if (!stock_data && !stockLoading) {
+
+  return <AppLoader/>;
+}
+if (!stockLoading && !stock_data.stockData && !isFetching){
+  return <div>هذا اليوم لا يوجد فيه معلومات او غير موجود ف قاعدة البينات</div>
+}
+
+
+  const thisday = localStorage.getItem("selected")
+  console.log(thisday);
   function ehandler() {
     mangerOfWarehouse.addTrader(name, mlian, fadi, money);
-    invalidData()
+    invalidData();
   }
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-6 dark:bg-gray-900">
       <div className="max-w-6xl h-full mx-auto text-center">
-        <h1 className="dark:text-gray-100">اليوم : {dayName}</h1>
+        <div className="flex items-center justify-between ">
+          <h1 className="dark:text-gray-100 ">اليوم : {selectedDay}</h1>
+          <div>
+            <AllDaysLest />
+          </div>
+        </div>
 
         <section
           className="bg-white mb-6 shadow-md rounded-2xl p-6 
@@ -144,7 +163,7 @@ export default function MainPageContent() {
                 : stock_data.traders?.map((t) => (
                     <Link
                       key={t.id}
-                      to={`trader?name=${t.id}&dayName=${dayName}`}
+                      to={`trader/${t.id}`}
                     >
                       <div
                         className="w-full max-w-sm bg-gray-50 rounded-2xl shadow-md p-4 hover:shadow-lg transition 

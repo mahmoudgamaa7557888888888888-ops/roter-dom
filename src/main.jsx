@@ -8,6 +8,7 @@ import ToastProvider from "./context/ToastContext";
 import ThemeProvider from "./context/themeContext";
 import QuryCacheClientProvider from "./context/QuryCacheClientProvider";
 import AppLoader from "./AppLoader/AppLoader";
+import AllDaysProvider from "./context/AllDaysProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <AuthStateProvider>
             <ToastProvider>
               <ThemeProvider>
-                <App />
+                <AllDaysProvider>
+                  <App />
+                </AllDaysProvider>
               </ThemeProvider>
             </ToastProvider>
           </AuthStateProvider>
