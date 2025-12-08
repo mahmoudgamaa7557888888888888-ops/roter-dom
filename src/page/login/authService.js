@@ -16,11 +16,16 @@ export const registerUser = async (email, password, role ) => {
 
 
 export const loginUser = async (email, password) => {
-  const userCredential = await auth.signInWithEmailAndPassword(email, password);
-  const user = userCredential.user;
+  try{
 
-  const userDoc = await db.collection("users").doc(user.email).get();
-  const data = userDoc.data();
-
-  return { user, role: data.role };
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+  
+    const userDoc = await db.collection("users").doc(user.email).get();
+    const data = userDoc.data();
+  
+    return { user, role: data.role };
+  }catch(err){
+    console.log("err when you login" , err);
+  }
 };

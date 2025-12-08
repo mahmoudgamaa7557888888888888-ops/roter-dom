@@ -1,59 +1,84 @@
+import React, { useState } from "react";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { useAllDays } from "../../../../context/AllDaysProvider";
 
-export default function AllDaysLest() {
+
+
+const ITEM_HEIGHT = 75;
+
+export default function AllDaysList() {
   const { allDays, daysLoading, setSelectedDay } = useAllDays();
+  
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-6">
+    <div className="w-full max-w-md mx-auto mt-6 text-right">
+
       {/* زر القائمة */}
       <button
-        onClick={(e) => {
-          const content = e.currentTarget.nextElementSibling;
-          content.classList.toggle("max-h-0");
-          content.classList.toggle("max-h-full");
-        }}
+        onClick={handleClick}
         className="
- w-full text-right px-4 py-3 rounded-xl 
- font-semibold text-gray-800 bg-gray-200 
- hover:bg-gray-300 transition-all 
- dark:text-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 relative
- "
+          w-full text-right px-4 py-3 rounded-xl 
+          font-semibold text-gray-800 bg-gray-200 
+          hover:bg-gray-300 transition-all 
+          dark:text-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600
+        "
       >
         اختر يوم عمل
       </button>
 
-      {/* القائمة */}
-      <div
-        className=" absolute z-30
- max-h-0 overflow-hidden transition-all duration-500 
- bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md mt-2
- "
+      {/* القائمة MUI */}
+      <Menu
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          className:
+            "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-xl shadow-lg",
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: "220px",
+          },
+        }}
+        MenuListProps={{
+          className: "py-2",
+        }}
       >
-        <div className="p-3">
-          {daysLoading ? (
-            <p className="text-gray-600 dark:text-gray-300 text-sm text-right">
-              جاري التحميل...
-            </p>
-          ) : (
-            allDays.map((day) => (
-              <div
-                onClick={(e) => {
-                  setSelectedDay(day.id);
-                }}
-                key={day.id}
-                className="
- px-4 py-2 rounded-lg cursor-pointer
- hover:bg-gray-200 dark:hover:bg-gray-700 
- text-right font-medium text-gray-800 dark:text-gray-200
- transition-all
- "
-              >
-                {day.id}
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+        {daysLoading ? (
+          <MenuItem className="text-gray-600 dark:text-gray-300 text-sm">
+            جاري التحميل...
+          </MenuItem>
+        ) : (
+          allDays.map((day) => (
+            <MenuItem
+              key={day.id}
+              onClick={() => {
+                setSelectedDay(day.id);
+                handleClose();
+              }}
+              className="
+                !text-right font-medium
+                hover:bg-gray-200 dark:hover:bg-gray-700 
+                rounded-lg transition-all
+              "
+            >
+              {day.id}
+            </MenuItem>
+          ))
+        )}
+      </Menu>
     </div>
   );
 }

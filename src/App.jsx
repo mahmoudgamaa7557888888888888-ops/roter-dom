@@ -8,13 +8,14 @@ import { useContext, useEffect } from "react";
 import MainPageContent from "./page/MainPage/components/mainPageContent/MainPageContent";
 import AddDayPage from "./page/MainPage/components/addDayPage/AddDayPage";
 import AllDaysPage from "./page/MainPage/components/allDaysPage/AllDaysPage";
-import Traders from "./page/MainPage/components/Traders";
+import Traders from "./page/MainPage/components/trader/Traders";
 import { useState } from "react";
 import { WarehouseManger } from "./context/WarehouseManager";
 import AppLoader from "./AppLoader/AppLoader";
 import LoginGurd from "./AppLoader/LoginGurd";
 import AuthGurd from "./AppLoader/AuthGurd";
 import { useAllDays } from "./context/AllDaysProvider";
+import DetilseDay from "./page/MainPage/components/frontPage/DetilseDay";
 
 function App() {
   const { user, loading } = useContext(AuthStateContext);
@@ -27,26 +28,24 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/home/"
+          path="/home"
           element={
             <AuthGurd>
               <MainPage />
             </AuthGurd>
           }
         >
+          
+      
           <Route index element={<MainPageContent />} />
+          <Route path="detilse" element={<DetilseDay/>} />
           <Route path="trader/:name" element={<Traders />} />
           <Route path="add-day" element={<AddDayPage />} />
           <Route path="all-days" element={<AllDaysPage />} />
         </Route>
-        <Route
-          path="/"
-          element={
-            <AuthGurd>
-              <MainPage />
-            </AuthGurd>
-          }
-        />
+
+
+        <Route path="/" element={<Navigate to="/home" />} />
 
         <Route
           path="/login"

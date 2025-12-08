@@ -28,7 +28,7 @@ export default function newDay() {
         </h1>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xl p-6 h-3/6 mt-9 w-3/6 
+      <div className="bg-white rounded-2xl shadow-xl p-6 h-3/6 mt-9 w-4/5 md:w-3/6 
       dark:bg-gray-800 dark:shadow-gray-900/40">
 
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-600 dark:text-blue-400">

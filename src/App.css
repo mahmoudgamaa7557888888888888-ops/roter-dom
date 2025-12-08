@@ -1,19 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
+html, body {
+  height: 100%;
+}
 @layer utilities {
-    .max-h-500 {
-      max-height: 500px;
-    }
-  
-    .max-h-400 {
-      max-height: 400px;
-    }
-  
-    .max-h-300 {
-      max-height: 300px;
-    }
+  .shadow-green {
+    box-shadow: 0 4px 15px rgba(153, 253, 153, 0.67);
   }
-  
+  .shadow-blue {
+    box-shadow: 0 4px 15px rgba(92, 91, 248, 1);
+  }
+  .shadow-red {
+    box-shadow: 0 4px 15px rgba(248, 91, 102, 1);
+  }
+}

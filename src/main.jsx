@@ -10,6 +10,7 @@ import QuryCacheClientProvider from "./context/QuryCacheClientProvider";
 import AppLoader from "./AppLoader/AppLoader";
 import AllDaysProvider from "./context/AllDaysProvider";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Suspense fallback={<AppLoader />}>
