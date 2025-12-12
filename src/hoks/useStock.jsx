@@ -4,10 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import { useToast } from "./useToast";
 import { useQueryClient } from "react-query";
 import { useAllDays } from "../context/AllDaysProvider";
-import AppLoader from "../AppLoader/AppLoader";
+
 
 export function useStock() {
-  const { selectedDay, daysLoading } = useAllDays();
+  const { selectedDay } = useAllDays();
   const [param] = useSearchParams();
   const { showToast } = useToast();
   const queryClient = useQueryClient();

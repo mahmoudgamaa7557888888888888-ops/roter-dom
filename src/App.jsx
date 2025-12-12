@@ -7,7 +7,7 @@ import { AuthStateContext } from "./context/AuthStateContext";
 import { useContext, useEffect } from "react";
 import MainPageContent from "./page/MainPage/components/mainPageContent/MainPageContent";
 import AddDayPage from "./page/MainPage/components/addDayPage/AddDayPage";
-import AllDaysPage from "./page/MainPage/components/allDaysPage/AllDaysPage";
+import AllDaysPage from "./page/MainPage/components/AllDaysPage/AllDaysPage";
 import Traders from "./page/MainPage/components/trader/Traders";
 import { useState } from "react";
 import { WarehouseManger } from "./context/WarehouseManager";
@@ -16,6 +16,7 @@ import LoginGurd from "./AppLoader/LoginGurd";
 import AuthGurd from "./AppLoader/AuthGurd";
 import { useAllDays } from "./context/AllDaysProvider";
 import DetilseDay from "./page/MainPage/components/frontPage/DetilseDay";
+import StockLogs from "./page/MainPage/components/stockLog/StockLogs";
 
 function App() {
   const { user, loading } = useContext(AuthStateContext);
@@ -39,6 +40,7 @@ function App() {
       
           <Route index element={<MainPageContent />} />
           <Route path="detilse" element={<DetilseDay/>} />
+          <Route path="log" element={<StockLogs/>} />
           <Route path="trader/:name" element={<Traders />} />
           <Route path="add-day" element={<AddDayPage />} />
           <Route path="all-days" element={<AllDaysPage />} />

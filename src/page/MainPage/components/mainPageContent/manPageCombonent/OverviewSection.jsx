@@ -1,15 +1,44 @@
-import React from "react";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
-import AssessmentOutlinedIcon from "@material-ui/icons/AssessmentOutlined";
 import { Link } from "react-router-dom";
 import StockCard from "./StockCard";
 
 export default function OverviewSection({
   stockLoading,
   stockData,
-  selectedDay
+  selectedDay,
 }) {
+  // هنا أري فيه البينات بتاعة كل كرت , كل اوبجيكت عباره عن كرت جديد
+  let dataOfCards = [
+    // كرت المليان
+    {
+      title: "المليان",
+      value: stockData?.available_mlian,
+      description: "المليان المتبقي فالمخزن",
+      isLoading: stockLoading,
+      icon: EventAvailableIcon,
+      color: "green",
+    },
+    // كرت الفاضي
+    {
+      title: "الفاضي",
+      value: stockData?.available_fadi,
+      description: "الفاضي الي تم استلامه وموجود فالمخزن",
+      isLoading: stockLoading,
+      icon: AssignmentTurnedInOutlinedIcon,
+      color: "blue",
+    },
+    // كرت المتبقي
+    {
+      title: "المتبقي",
+      value: stockData?.available_money,
+      description: "الفاضي الي برا لسه مش مستلم",
+      isLoading: stockLoading,
+      icon: EventAvailableIcon,
+      color: "red",
+    },
+  ];
+
   return (
     <section
       className="bg-white mb-6 shadow-md rounded-2xl p-6 
@@ -23,37 +52,20 @@ export default function OverviewSection({
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* المليان */}
-        <StockCard
-          title="المليان"
-          value={stockData?.available_mlian}
-          loading={stockLoading}
-          description="المليان المتبقي فالمخزن"
-          icon={EventAvailableIcon}
-          color="green"
-        />
-
-        {/* الفاضي */}
-        <StockCard
-          title="الفاضي"
-          value={stockData?.available_fadi}
-          loading={stockLoading}
-          description="الفاضي الي تم استلامه وموجود فالمخزن"
-          icon={AssignmentTurnedInOutlinedIcon}
-          color="blue"
-        />
-
-        {/* المتبقي */}
-        <StockCard
-          title="المتبقي"
-          value={stockData?.available_money}
-          loading={stockLoading}
-          description="الفاضي الي برا لسه مش مستلم"
-          icon={AssessmentOutlinedIcon}
-          color="red"
-        />
+        {/* loop of cards - الكروت*/}
+        {dataOfCards.map((card, index) => (
+          <StockCard
+            key={index}
+            title={card.title}
+            value={card.value}
+            loading={card.isLoading}
+            description={card.description}
+            icon={card.icon}
+            color={card.color}
+          />
+        ))}
       </div>
-
+      {/* منطقه الازرار  */}
       <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-6">
         <Link
           to={`detilse`}
@@ -61,7 +73,7 @@ export default function OverviewSection({
               transform hover:scale-105 transition-all duration-300 
               dark:bg-blue-500 dark:hover:bg-blue-600"
         >
-          🚚 إنشاء نقلة جديدة
+          🚚  تفاصيل النقله 
         </Link>
 
         <Link

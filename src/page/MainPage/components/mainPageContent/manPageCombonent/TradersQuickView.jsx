@@ -1,4 +1,3 @@
-import React from "react";
 import TraderCard from "./TraderCard";
 
 export default function TradersQuickView({ stockLoading, traders }) {
@@ -20,7 +19,8 @@ export default function TradersQuickView({ stockLoading, traders }) {
 
       <div className="w-full px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {stockLoading
+          {stockLoading 
+              /* هنا سكيليتون لودينج  */
             ? Array.from({ length: 4 }).map((_, index) => (
                 <div
                   key={index}

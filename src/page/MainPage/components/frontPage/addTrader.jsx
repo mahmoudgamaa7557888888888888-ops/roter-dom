@@ -36,7 +36,7 @@ export default function AddTraderF() {
           traderData.traderName,
           traderData.traderMlian,
           traderData.traderfadi,
-          0
+          50
         );
         invalidData();
       } catch (e) {

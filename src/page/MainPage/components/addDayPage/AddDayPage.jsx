@@ -10,14 +10,14 @@ export default function newDay() {
   const [dayName, setDayName] = useState(today);
   const { showToast } = useToast();
 
-  const mangerStockData = new WarehouseManger(dayName);
+  const mangerStockData = new WarehouseManger(dayName,showToast);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     mangerStockData.addStock(mlian, fadi, money);
 
-    showToast("تم حفظ البيانات بنجاح ✅");
+  
   };
 
   return (

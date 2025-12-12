@@ -1,9 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* تعميم الخط على كل المشروع */
+@layer base {
+  body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal
+  }
+}
+
 html, body {
   height: 100%;
 }
+
 @layer utilities {
   .shadow-green {
     box-shadow: 0 4px 15px rgba(153, 253, 153, 0.67);

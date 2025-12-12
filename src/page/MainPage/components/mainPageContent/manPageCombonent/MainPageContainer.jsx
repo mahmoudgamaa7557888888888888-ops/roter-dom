@@ -1,7 +1,4 @@
-import React from "react";
-import AllDaysLest from "../../allDaysPage/AllDaysLest";
-import OverviewSection from "./OverviewSection";
-import TradersQuickView from "./TradersQuickView";
+import AllDaysLest from "./AllDaysLest";
 import AddTraderF from "../../frontPage/addTrader";
 
 export default function MainPageContainer({

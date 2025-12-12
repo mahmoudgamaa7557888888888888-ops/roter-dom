@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function TraderLogItem({ log, traderName }) {
   const [isExpanded, setIsExpanded] = useState(false);

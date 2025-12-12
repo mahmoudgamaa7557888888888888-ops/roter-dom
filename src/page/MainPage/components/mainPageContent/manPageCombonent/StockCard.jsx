@@ -31,7 +31,7 @@ export default function StockCard({
     }
   };
 
-  const config = colorConfigs[color] || colorConfigs.blue;
+  const config = colorConfigs[color] || colorConfigs.blue; // <== لو الشخص محطش لون , ف تلقائي هيكون ازرق
 
   return (
     <div
@@ -45,7 +45,7 @@ export default function StockCard({
         {loading ? loadingText : value}
       </p>
       <p className="text-sm text-gray-500 mt-2 dark:text-gray-400">
-        {description}
+        {description} 
       </p>
     </div>
   );
